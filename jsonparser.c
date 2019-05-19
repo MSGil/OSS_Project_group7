@@ -2,10 +2,30 @@
 #include <stdlib.h>
 #include <string.h>
 char *append(char *str, char ch);
-int token_assigner (int ti, int tj, char *str, char **arr, int *size, int *start, int *end);
+int token_assigner (int ti, int tj, char *str, char **arr, int *size);
+
+
+typedef enum {
+                UNDEFINED = 0,
+                OBJECT = 1,
+                ARRAY = 2,
+                STRING = 3,
+                PRIMITIVE = 4
+
+} type_t;
+
+typedef struct {
+                type_t type;
+                int start;
+                int end;
+                int size;
+} tok_t;
+
+tok_t t[30];
 
 int main(void) {
     //invoke variables
+  
   FILE *fp = NULL;
   char ch;
   char *str = (char *)malloc (1048);
@@ -28,8 +48,6 @@ int main(void) {
     int MAX_LENGTH = 2048;
     char **arr;
     int size[1000] = {0};
-    int start[1000] = {0};
-    int end[1000]= {0};
     arr = (char**) malloc(sizeof(char*) * MAX_LENGTH);
     for(int i=0; i<MAX_LENGTH; i++) {
         arr[i] = (char*) malloc (1048);
@@ -39,44 +57,46 @@ int main(void) {
     while(str[i] != '\0'){
         //decipher if current string is key / value 
         if (str[i] == '"'){
+            
             i++;
-            start[j]= i;
+            t[j].start = i ; 
             for (;str[i]!= '"'; i++){
                 arr[j] = append(arr[j],str[i]);
             }
-            end[j]= i;
-            if (str[i+1]==':') size[j] = 1; 
-            else size[j] = 0;
+            t[j].end= i-1 ;
+            if (str[i+1]==':') t[j].size = 1; 
+            else t[j].size = 0;
             j++;
         }
        //decipher if current string is object
         else if (str[i] == '{'){
             k=j;
-            start[j]=i;
+            t[j].start = i;
             do{
                 arr[j]= append(arr[j], str[i]);
                 if (str[i] != '{'){
-                k=token_assigner (i,k, str, arr, size, start, end);
+                k=token_assigner (i,k, str, arr, size);
                 }
                 i++;
-            if (str[i]== ',') size[j]++;
+            if (str[i]== ',') t[j].size++;
             } while (str[i-1]!= '}');
-            end[j]= i;
             j= ++k;
+        
+        t[j].end = i-1;
         }
         //decipher if current string is array
         else if (str[i] =='['){
             k=j;
-            start[j]=i;
-            size[j]++;
+            t[j].size++;
+            t[j].start = i;
             for (;str[i-1]!=']'; i++){
                 arr[j]=append(arr[j],str[i]);
                 if (str[i]!= '['){
-                k=token_assigner (i,k,str,arr, size, start, end);
+                k=token_assigner (i,k,str,arr, size);
                 }
-                if (str[i]== ',') size[j]++;
+                if (str[i]== ',') t[j].size++;
             }
-            end[j]=i;
+            t[j].end = i-1;
             j=++k;
         }
         //
@@ -85,7 +105,7 @@ int main(void) {
     // print tokens
    for (i=0; i<21; i++){
     printf("[%d]%s", i+1,arr[i]);
-    printf("  (size = %d, %d~%d)\n", size[i],start[i], end[i]);
+    printf("  (size = %d, %d ~ %d )\n", t[i].size,t[i].start,t[i].end);
     }
 
 // close files and free mallocated items.
@@ -107,47 +127,47 @@ char *append(char *str, char ch){
   return str;
 }
 //assign nested tokens
-int token_assigner (int ti, int tj, char *str, char**arr, int *size, int *start, int *end){
+int token_assigner (int ti, int tj, char *str, char**arr, int *size){
     int tk =0;
     if (str[ti] == ',') return tj;
     if (str[ti-1] == '"' && str[ti] != ':' && str[ti] != '\n'){
             tj++;
-            start[tj] = ti;
+            t[tj].start = ti;
             for (;str[ti] != '"'; ti++){
                 arr[tj] = append(arr[tj],str[ti]);
             }
-            end[tj]= ti;
-            if (str[ti+1]==':') size[tj] = 1; 
-            else size[tj] = 0;
+            t[tj].end = ti-1;
+            if (str[ti+1]==':') t[tj].size = 1; 
+            else t[tj].size = 0;
         }
      else if (str[ti] == '{'){
             tj++;
             tk=tj;
-            start[tj] = ti;
+            t[tj].start = ti;
             do{
 
                 arr[tj]= append(arr[tj], str[ti]);
                 if (str[ti] != '{'){
-                tk=token_assigner(ti, tk,str,arr, size, start, end);
+                tk=token_assigner(ti, tk,str,arr, size);
                 }
                 ti++;
-        if (str[ti]== ',') size[tj]++;
+        if (str[ti]== ',') t[tj].size++;
             } while (str[ti-1]!= '}');
-            end [tj] = ti;
+            t[tj].end = ti-1;
             tj=++tk;
         }
     else if (str[ti] =='['){
             tk=tj;
             tj++;
-            start[tj]= ti;
+            t[tj].start = ti;
             for (;str[ti-1]!=']'; ti++){
                 arr[tj]=append(arr[tj],str[ti]);
                 if (str[ti] != '['){
-                tk=token_assigner(ti, tk,str,arr, size, start, end);
+                tk=token_assigner(ti, tk,str,arr, size);
                 }
-             if (str[ti]== ',') size[tj]++;
+             if (str[ti]== ',') t[tj].size++;
             }
-            end[tj]=ti;
+            t[tj].end =ti-1;
             tj=++tk;
         }
         return tj;
