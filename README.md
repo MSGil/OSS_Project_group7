@@ -34,7 +34,7 @@ $gcc -g jsonparcer-c -o jsonparser
 
 ### Functions 
 
-
+void append 
 
 ## Authors
 
