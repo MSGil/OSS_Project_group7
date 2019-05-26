@@ -38,7 +38,7 @@ $gcc -g jsonparcer-c -o jsonparser
 ![](result.png)
 ## Authors
 
-21700062 Gil Minsoo
+21700062 Gil Minsu
 21800446 Oh Inhyuk
 21800227 Nho EunSol
 ## Acknowledgements
