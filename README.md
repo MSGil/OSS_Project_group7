@@ -4,7 +4,7 @@ This project enables users to parse their text file into a JSON tet form, allowi
 
 ## Motivation
 
-To provide access to multiple forms of data from one (!) text file.
+To provide access to multiple forms of data from one text file.
 
 ## List of Included Files
 
@@ -25,7 +25,7 @@ To provide access to multiple forms of data from one (!) text file.
 
 ### Executing Program
 
-$gcc -g jsonparcer-c -o jsonparser 
+$gcc -g jsonparcer.c -o jsonparser 
  // compiles the code file into object file
  
  $./jsonparser filename
