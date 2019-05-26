@@ -13,6 +13,7 @@ To provide access to multiple forms of data from one (!) text file.
 3) examples.json // example text file
 4) LICENSE.md    // LICENSE file for JSON Parser file
 5) README.md
+6) result.png    // screenshot of example
 
 ## Getting Started
 
@@ -32,10 +33,9 @@ $gcc -g jsonparcer-c -o jsonparser
  
  ex) $./jsonparser examples.json
 
-### Functions 
+### Screenshot of Execution
 
-void append 
-
+![](result.png)
 ## Authors
 
 21700062 Gil Minsoo
