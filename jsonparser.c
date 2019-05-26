@@ -23,7 +23,7 @@ typedef struct {
 } tok_t;
 
 tok_t t[1048];
-int i=0,j=0;
+int i=0,j=-1;
 
 int main(int argc, char *argv[]) {
 //initialize variables
@@ -37,8 +37,8 @@ int main(int argc, char *argv[]) {
   char **arr;
 
    arr = (char**) malloc(sizeof(char*) * MAX_LENGTH);
-    for(int i=0; i<MAX_LENGTH; i++) {
-        arr[i] = (char*) malloc (1048);
+    for(int a=0; a<MAX_LENGTH; a++) {
+        arr[a] = (char*) malloc (1048);
     }
 
   //open file
@@ -47,12 +47,12 @@ int main(int argc, char *argv[]) {
   if (fp == NULL) {
       printf("Error");
       exit(0);
-    } 
+  } 
 
     //2. if file exists
-    else {
+  else {
         printf("You have opened file : %s\n", argv[1]);
-    }
+  }
 
   //write into string
   while (ch !=EOF){
@@ -91,15 +91,15 @@ int main(int argc, char *argv[]) {
 
             j++;
             k=j;
-            i++;
 
             //3b.intialize start as i
             t[j].start = i;
+            i++;
+
+            
             t[j].size = 1;
             //3e.assign type to object
             t[j].type = OBJECT;
-            //arr[j]= append(arr[j], str[i]);
-            //i++;
 
             //3c.append to array
             do{
@@ -108,8 +108,8 @@ int main(int argc, char *argv[]) {
                 if (str[i]== ',') t[k].size++;
             } while (str[i]!= '}');
 
-            //3d.intialize end as i
-            t[k].end = i;
+            //3d.intialize end as i+1
+            t[k].end = i+1;
             
             //3f.bring in next array
         
@@ -120,15 +120,15 @@ int main(int argc, char *argv[]) {
 
             j++;
             k=j;
-            i++;
 
             //3b.intialize start as i
             t[j].start = i;
+            i++;
+
+            
             t[j].size = 1;
             //3e.assign type to object
             t[j].type = ARRAY;
-            //arr[j]= append(arr[j], str[i]);
-            //i++;
 
             //3c.append to array
             do{
@@ -137,28 +137,27 @@ int main(int argc, char *argv[]) {
                 if (str[i]== ',') t[k].size++;
             } while (str[i]!= ']');
 
-            //3d.intialize end as i
-            t[k].end = i;
+            //3d.intialize end as i+1
+            t[k].end = i+1;
             
             //3f.bring in next array
         
         }
 
         //5. if it is primitive
-        else if (str[i]=='+' || str[i]=='-' || (str[i]>=48 && str[i]<=57) || (str[i]>=65 && str[i]<=90) || (str[i]>=97 && str[i]<=112) ) {
+        else if (str[i]==43 || str[i]==45|| str[i]==46 || (str[i]>=48 && str[i]<=57) || str[i]==65 || str[i]==69 || str[i]==70 || str[i]==76 ||str[i]==78 || str[i]==82 || str[i]==83 || str[i]==84 || str[i]==85 || str[i]==97 || str[i]==101 || str[i]==102 || str[i]==108 || str[i]==110 || str[i]==114 || str[i]==115 || str[i]==116 || str[i]==117 ) {
             j++;
+
+            //3b.(2)intialize start as ti
+            t[j].start = i;
             i++;
             //3a.assign type as string
             t[j].type = PRIMITIVE;
 
-        //3b.if ti is not the end quotation mark
-        //if (str[i] != ':' && str[i] != '\n'){    
-
-            //3b.(2)intialize start as ti
-            t[j].start = i;
+            
 
             //3b.(3)start appending to array[tj]
-            for (;str[i]=='+' || str[i]=='-' || (str[i]>=48 && str[i]<=57) || (str[i]>=65 && str[i]<=90) || (str[i]>=97 && str[i]<=112); i++){
+            for (;str[i]==43 || str[i]==45|| str[i]==46 || (str[i]>=48 && str[i]<=57) || str[i]==65 || str[i]==69 || str[i]==70 || str[i]==76 ||str[i]==78 || str[i]==82 || str[i]==83 || str[i]==84 || str[i]==85 || str[i]==97 || str[i]==101 || str[i]==102 || str[i]==108 || str[i]==110 || str[i]==114 || str[i]==115 || str[i]==116 || str[i]==117 ; i++){
                 //arr[tj] = append(arr[tj],str[i]);
             }
 
@@ -206,10 +205,7 @@ void token_assigner (char *str, char**arr){
         j++;
         i++;
         //3a.assign type as string
-        t[j].type = STRING;
-
-        //3b.if ti is not the end quotation mark
-        //if (str[i] != ':' && str[i] != '\n'){    
+        t[j].type = STRING;  
 
             //3b.(2)intialize start as ti
         t[j].start = i;
@@ -230,7 +226,6 @@ void token_assigner (char *str, char**arr){
             //r3b.(7)eturn the position of tj
         i++;
         return;
-        //}
 
     }
 
@@ -239,15 +234,15 @@ void token_assigner (char *str, char**arr){
 
             j++;
             k=j;
-            i++;
 
             //3b.intialize start as i
             t[j].start = i;
+            i++;
+
+            
             t[j].size = 1;
             //3e.assign type to object
             t[j].type = OBJECT;
-            //arr[j]= append(arr[j], str[i]);
-            //i++;
 
             //3c.append to array
             do{
@@ -256,8 +251,8 @@ void token_assigner (char *str, char**arr){
                 if (str[i]== ',') t[k].size++;
             } while (str[i]!= '}');
 
-            //3d.intialize end as i
-            t[k].end = i;
+            //3d.intialize end as i+!
+            t[k].end = i+1;
 
             i++;
             return;
@@ -269,15 +264,15 @@ void token_assigner (char *str, char**arr){
 
             j++;
             k=j;
-            i++;
 
             //3b.intialize start as i
             t[j].start = i;
+            i++;
+
+            
             t[j].size = 1;
             //3e.assign type to object
             t[j].type = ARRAY;
-            //arr[j]= append(arr[j], str[i]);
-            //i++;
 
             //3c.append to array
             do{
@@ -286,29 +281,26 @@ void token_assigner (char *str, char**arr){
                 if (str[i]== ',') t[k].size++;
             } while (str[i]!= ']');
 
-            //3d.intialize end as i
-            t[k].end = i;
+            //3d.intialize end as i+1
+            t[k].end = i+1;
 
             i++;
             return;
     }
 
     //primitive
-    else if (str[i]=='+' || str[i]=='-' || (str[i]>=48 && str[i]<=57) || (str[i]>=65 && str[i]<=90) || (str[i]>=97 && str[i]<=112) ) {
+    else if (str[i]==43 || str[i]==45|| str[i]==46 || (str[i]>=48 && str[i]<=57) || str[i]==65 || str[i]==69 || str[i]==70 || str[i]==76 || str[i]==78 || str[i]==82 || str[i]==83 || str[i]==84 || str[i]==85 || str[i]==97 || str[i]==101 || str[i]==102 || str[i]==108 || str[i]==110 || str[i]==114 || str[i]==115 || str[i]==116 || str[i]==117 ) {
+            
             j++;
-            i++;
-            //3a.assign type as string
-            t[j].type = PRIMITIVE;
-
-        //3b.if ti is not the end quotation mark
-        //if (str[i] != ':' && str[i] != '\n'){    
 
             //3b.(2)intialize start as ti
             t[j].start = i;
+            i++;
+            //3a.assign type as string
+            t[j].type = PRIMITIVE;  
 
-            //3b.(3)start appending to array[tj]
-            for (;str[i]=='+' || str[i]=='-' || (str[i]>=48 && str[i]<=57) || (str[i]>=65 && str[i]<=90) || (str[i]>=97 && str[i]<=112); i++){
-                //arr[tj] = append(arr[tj],str[i]);
+            //3b.
+            for (;str[i]==43 || str[i]==45|| str[i]==46 || (str[i]>=48 && str[i]<=57) || str[i]==65 || str[i]==69 || str[i]==70 || str[i]==76 ||str[i]==78 || str[i]==82 || str[i]==83 || str[i]==84 || str[i]==85 || str[i]==97 || str[i]==101 || str[i]==102 || str[i]==108 || str[i]==110 || str[i]==114 || str[i]==115 || str[i]==116 || str[i]==117 ; i++){
             }
 
             //3b.(4)initialize end as ti
@@ -324,7 +316,9 @@ void token_assigner (char *str, char**arr){
 
 void value_assign(int presentj, char *str, char **arr){
     for(int a=0;a<=presentj;a++){
-        for(int b=t[a].start;b<t[a].end;b++) append(arr[a],str[b]);
+        for(int b=t[a].start;b<t[a].end;b++){
+            append(arr[a],str[b]);
+        } 
     }
 }
 
@@ -333,7 +327,6 @@ void print_tokens (char **arr){
 
     int i=1;
 
-    //for (i=0; arr[i]==NULL; i++){
      while(arr[i][0]!='\0')
     {
         printf("[%d]%s", i, arr[i]);
