@@ -63,15 +63,16 @@ int main(int argc, char *argv[]) {
   //assign tokens to arrays
     while(str[i] != '\0'){
         
-        //2. decipher if current string is string
+        //1. decipher if current string is string
         if (str[i] == '"'){
         
         j++;
         i++;
-        //3a.assign type as string
+
+        //assign type as string
         t[j].type = STRING;
 
-        //3b.(2)intialize start as ti
+        //intialize start as i
         t[j].start = i;
 
         for (;str[i] != '"'; i++){
@@ -79,93 +80,84 @@ int main(int argc, char *argv[]) {
 
         t[j].end = i;
 
-        //3b.(5) if string come before : that means it is key: size is 1
+        //if string come before : that means it is key: size is 1
         if (str[i+1]==':') t[j].size = 1;
-        //3b.(6) else it is value, size is 0
+        //else it is value, size is 0
         else t[j].size = 0;
 
         }
 
-       //3.decipher if current string is object
+       //2.decipher if current string is object
         else if (str[i] == '{'){
 
             j++;
             k=j;
 
-            //3b.intialize start as i
+            //intialize start as i
             t[j].start = i;
             i++;
 
-            
             t[j].size = 1;
-            //3e.assign type to object
+            //assign type to object
             t[j].type = OBJECT;
 
-            //3c.append to array
+            //append to array
             do{
                 token_assigner(str, arr);
-                //3c.(3)if you come across , it means there is more than one value in the object, increase size
+                //if come across ','means there is more than one value in the object, increase size
                 if (str[i]== ',') t[k].size++;
             } while (str[i]!= '}');
 
-            //3d.intialize end as i+1
+            //intialize end as i+1
             t[k].end = i+1;
-            
-            //3f.bring in next array
         
         }
 
-        //4.decipher if current string is array
+        //3.decipher if current string is array
         else if (str[i] == '['){
 
             j++;
             k=j;
 
-            //3b.intialize start as i
+            //intialize start as i
             t[j].start = i;
             i++;
 
             
             t[j].size = 1;
-            //3e.assign type to object
+            //assign type to object
             t[j].type = ARRAY;
 
-            //3c.append to array
             do{
                 token_assigner(str, arr);
-                //3c.(3)if you come across , it means there is more than one value in the object, increase size
+                //if come across ','means there is more than one value in the object, increase size
                 if (str[i]== ',') t[k].size++;
             } while (str[i]!= ']');
 
-            //3d.intialize end as i+1
+            //intialize end as i+1
             t[k].end = i+1;
-            
-            //3f.bring in next array
-        
+           
         }
 
-        //5. if it is primitive
+        //4. if it is primitive
         else if (str[i]==43 || str[i]==45|| str[i]==46 || (str[i]>=48 && str[i]<=57) || str[i]==65 || str[i]==69 || str[i]==70 || str[i]==76 ||str[i]==78 || str[i]==82 || str[i]==83 || str[i]==84 || str[i]==85 || str[i]==97 || str[i]==101 || str[i]==102 || str[i]==108 || str[i]==110 || str[i]==114 || str[i]==115 || str[i]==116 || str[i]==117 ) {
             j++;
 
-            //3b.(2)intialize start as ti
+            //intialize start as i
             t[j].start = i;
             i++;
-            //3a.assign type as string
+
+            //assign type to PRIMITIVE
             t[j].type = PRIMITIVE;
 
-            
-
-            //3b.(3)start appending to array[tj]
             for (;str[i]==43 || str[i]==45|| str[i]==46 || (str[i]>=48 && str[i]<=57) || str[i]==65 || str[i]==69 || str[i]==70 || str[i]==76 ||str[i]==78 || str[i]==82 || str[i]==83 || str[i]==84 || str[i]==85 || str[i]==97 || str[i]==101 || str[i]==102 || str[i]==108 || str[i]==110 || str[i]==114 || str[i]==115 || str[i]==116 || str[i]==117 ; i++){
-                //arr[tj] = append(arr[tj],str[i]);
             }
 
-            //3b.(4)initialize end as ti
+            //initialize end as i
             t[j].end = i;
             t[j].size = 0;
         } 
-        //6. bring in another character
+        //6. bring in next character
         i++;
 
     }
@@ -199,59 +191,54 @@ char *append(char *str, char ch){
 void token_assigner (char *str, char**arr){
     int k=0;
 
-    //3.when object is string
+    //1.when object is string
     if (str[i] == '"'){
-        //3b.(1)assign to next array position
+  
         j++;
         i++;
-        //3a.assign type as string
+        //assign type as string
         t[j].type = STRING;  
 
-            //3b.(2)intialize start as ti
+            //intialize start as i
         t[j].start = i;
 
-            //3b.(3)start appending to array[tj]
         for (;str[i] != '"'; i++){
-                //arr[tj] = append(arr[tj],str[i]);
         }
 
-            //3b.(4)initialize end as ti
+            //initialize end as i
         t[j].end = i;
 
-            //3b.(5) if string come before : that means it is key: size is 1
+            //if string come before : that means it is key: size is 1
         if (str[i+1]==':') t[j].size = 1;
-            //3b.(6) else it is value, size is 0
+            //else it is value, size is 0
         else t[j].size = 0;
 
-            //r3b.(7)eturn the position of tj
         i++;
         return;
 
     }
 
-    //4.when value is object
+    //2.when value is object
      else if (str[i] == '{'){
 
             j++;
             k=j;
 
-            //3b.intialize start as i
+            //intialize start as i
             t[j].start = i;
             i++;
 
-            
             t[j].size = 1;
-            //3e.assign type to object
+            //assign type to object
             t[j].type = OBJECT;
 
-            //3c.append to array
             do{
                 token_assigner(str, arr);
-                //3c.(3)if you come across , it means there is more than one value in the object, increase size
+                //if you come across , it means there is more than one value in the object, increase size
                 if (str[i]== ',') t[k].size++;
             } while (str[i]!= '}');
 
-            //3d.intialize end as i+!
+            //intialize end as i+1
             t[k].end = i+1;
 
             i++;
@@ -259,56 +246,53 @@ void token_assigner (char *str, char**arr){
         
     }
 
-        //5. when value is array
+        //3. when value is array
     else if (str[i] == '['){
 
             j++;
             k=j;
 
-            //3b.intialize start as i
+            //intialize start as i
             t[j].start = i;
             i++;
 
             
             t[j].size = 1;
-            //3e.assign type to object
+            //assign type to oarray
             t[j].type = ARRAY;
 
-            //3c.append to array
             do{
                 token_assigner(str, arr);
-                //3c.(3)if you come across , it means there is more than one value in the object, increase size
+                //if you come across , it means there is more than one value in the object, increase size
                 if (str[i]== ',') t[k].size++;
             } while (str[i]!= ']');
 
-            //3d.intialize end as i+1
+            //intialize end as i+1
             t[k].end = i+1;
 
             i++;
             return;
     }
 
-    //primitive
-    else if (str[i]==43 || str[i]==45|| str[i]==46 || (str[i]>=48 && str[i]<=57) || str[i]==65 || str[i]==69 || str[i]==70 || str[i]==76 || str[i]==78 || str[i]==82 || str[i]==83 || str[i]==84 || str[i]==85 || str[i]==97 || str[i]==101 || str[i]==102 || str[i]==108 || str[i]==110 || str[i]==114 || str[i]==115 || str[i]==116 || str[i]==117 ) {
+        // 4.primitive
+        else if (str[i]==43 || str[i]==45|| str[i]==46 || (str[i]>=48 && str[i]<=57) || str[i]==65 || str[i]==69 || str[i]==70 || str[i]==76 || str[i]==78 || str[i]==82 || str[i]==83 || str[i]==84 || str[i]==85 || str[i]==97 || str[i]==101 || str[i]==102 || str[i]==108 || str[i]==110 || str[i]==114 || str[i]==115 || str[i]==116 || str[i]==117 ) {
             
             j++;
 
-            //3b.(2)intialize start as ti
+            //intialize start as i
             t[j].start = i;
             i++;
-            //3a.assign type as string
+            //3a.assign type as primitive
             t[j].type = PRIMITIVE;  
 
-            //3b.
             for (;str[i]==43 || str[i]==45|| str[i]==46 || (str[i]>=48 && str[i]<=57) || str[i]==65 || str[i]==69 || str[i]==70 || str[i]==76 ||str[i]==78 || str[i]==82 || str[i]==83 || str[i]==84 || str[i]==85 || str[i]==97 || str[i]==101 || str[i]==102 || str[i]==108 || str[i]==110 || str[i]==114 || str[i]==115 || str[i]==116 || str[i]==117 ; i++){
             }
 
-            //3b.(4)initialize end as ti
+            //initialize end as i
             t[j].end = i;
             t[j].size = 0;
     }
 
-        //return the which array position it is curently in.
         i++;
         return;
 
