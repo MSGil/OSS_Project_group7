@@ -19,9 +19,9 @@ To provide access to multiple forms of data from one text file.
 
 ### Dependencies
 
-Windows 10
-IOS 11
-Ubuntu 16.04 lts
+1) Windows 10
+2) IOS 11
+3) Ubuntu 16.04 lts
 
 ### Executing Program
 
