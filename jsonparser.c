@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *append(char *str, char ch);
+void append(char *str, char ch);
 void token_assigner (char *str, char **arr);
 void value_assign(int presentj, char *str, char **arr);
 void print_tokens (char **arr);
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
   //write into string
   while (ch !=EOF){
     ch = fgetc(fp);
-    str = append(str, ch);
+    append(str, ch);
   }
 
   //assign tokens to arrays
@@ -178,13 +178,13 @@ int main(int argc, char *argv[]) {
 }
 
 //append to string
-char *append(char *str, char ch){
+void append(char *str, char ch){
 
   int len= strlen(str);
   str = (char *)realloc(str, len+1+1);
   str[len]= ch;
   str[len+1]= '\0';
-  return str;
+  
 }
 
 //assign nested tokens
