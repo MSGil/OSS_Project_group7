@@ -2,10 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-void append(char *str, char ch);
-void token_assigner (char *str, char **arr);
-void value_assign(int presentj, char *str, char **arr);
-void print_tokens (char **arr);
+char *append(char *str, char ch);
+void token_assigner (char *str);
+void print_tokens (char *str);
 
 typedef enum {
                 UNDEFINED = 0,
@@ -31,15 +30,6 @@ int main(int argc, char *argv[]) {
   char ch;
   char *str = (char *)malloc (1048);
   int k=0;
-
-//mallocate 2d array
-  int MAX_LENGTH = 2048;
-  char **arr;
-
-   arr = (char**) malloc(sizeof(char*) * MAX_LENGTH);
-    for(int a=0; a<MAX_LENGTH; a++) {
-        arr[a] = (char*) malloc (1048);
-    }
 
   //open file
   fp = fopen(argv[1],"r");
@@ -103,7 +93,7 @@ int main(int argc, char *argv[]) {
 
             //append to array
             do{
-                token_assigner(str, arr);
+                token_assigner(str);
                 //if come across ','means there is more than one value in the object, increase size
                 if (str[i]== ',') t[k].size++;
             } while (str[i]!= '}');
@@ -129,7 +119,7 @@ int main(int argc, char *argv[]) {
             t[j].type = ARRAY;
 
             do{
-                token_assigner(str, arr);
+                token_assigner(str);
                 //if come across ','means there is more than one value in the object, increase size
                 if (str[i]== ',') t[k].size++;
             } while (str[i]!= ']');
@@ -162,33 +152,28 @@ int main(int argc, char *argv[]) {
 
     }
 
-//value_assign
-    value_assign(j,str,arr);
-
 // print tokens
-    print_tokens (arr);
+    print_tokens (str);
 
 // close files and free mallocated items.
   fclose(fp);
   free(str);
-  for(int j = 0;j<MAX_LENGTH;j++){
-        free(arr[j]);
-    }
+
   return 0;
 }
 
 //append to string
-void append(char *str, char ch){
+char *append(char *str, char ch){
 
   int len= strlen(str);
   str = (char *)realloc(str, len+1+1);
   str[len]= ch;
   str[len+1]= '\0';
-  
+  return str;
 }
 
 //assign nested tokens
-void token_assigner (char *str, char**arr){
+void token_assigner (char *str){
     int k=0;
 
     //1.when object is string
@@ -233,7 +218,7 @@ void token_assigner (char *str, char**arr){
             t[j].type = OBJECT;
 
             do{
-                token_assigner(str, arr);
+                token_assigner(str);
                 //if you come across , it means there is more than one value in the object, increase size
                 if (str[i]== ',') t[k].size++;
             } while (str[i]!= '}');
@@ -262,7 +247,7 @@ void token_assigner (char *str, char**arr){
             t[j].type = ARRAY;
 
             do{
-                token_assigner(str, arr);
+                token_assigner(str);
                 //if you come across , it means there is more than one value in the object, increase size
                 if (str[i]== ',') t[k].size++;
             } while (str[i]!= ']');
@@ -298,26 +283,19 @@ void token_assigner (char *str, char**arr){
 
 }
 
-void value_assign(int presentj, char *str, char **arr){
-    for(int a=0;a<=presentj;a++){
-        for(int b=t[a].start;b<t[a].end;b++){
-            append(arr[a],str[b]);
-        } 
-    }
-}
+void print_tokens (char *str){
 
+    int x=1;
 
-void print_tokens (char **arr){
-
-    int i=1;
-
-     while(arr[i][0]!='\0')
+     while(t[x].end!='\0')
     {
-        printf("[%d]%s", i, arr[i]);
+        printf("[%d]", x);
+        for(int i=t[x].start;i<t[x].end;i++){
+            printf("%c", str[i]);
+        }
+        printf("  (size = %d, %d ~ %d, ", t[x].size, t[x].start, t[x].end);
 
-        printf("  (size = %d, %d ~ %d, ", t[i].size, t[i].start, t[i].end);
-
-        switch (t[i].type){
+        switch (t[x].type){
             case 0: printf("UNDEFINED)\n");
             break;
 
@@ -334,7 +312,7 @@ void print_tokens (char **arr){
             break;
 
         }
-    i++;
+    x++;
     }
 
 }
