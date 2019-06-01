@@ -285,7 +285,7 @@ void token_assigner (char *str){
 
 void print_tokens (char *str){
 
-    int x=1;
+    int x=0;
 
      while(t[x].end!='\0')
     {
@@ -299,16 +299,16 @@ void print_tokens (char *str){
             case 0: printf("UNDEFINED)\n");
             break;
 
-            case 1: printf("JSMN_OBJECT)\n");
+            case 1: printf("OBJECT)\n");
             break;
 
-            case 2: printf("JSMN_ARRAY)\n");
+            case 2: printf("ARRAY)\n");
             break;
 
-            case 3: printf("JSMN_STRING)\n");
+            case 3: printf("STRING)\n");
             break;
 
-            case 4: printf("JSMN_PRIMITIVE)\n");
+            case 4: printf("PRIMITIVE)\n");
             break;
 
         }
