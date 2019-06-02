@@ -12,6 +12,7 @@ To provide access to multiple forms of data from one text file.
 2) jsonparser    // jsonparser executable file
 3) examples.json // json text file for jsonparser
 4) parsely.c     // application code file
+5) parsely       // application executable file
 5) parsely.json  // json text file for application
 6) LICENSE.md    // LICENSE file for JSON Parser file
 7) README.md
