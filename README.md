@@ -1,4 +1,4 @@
-# JSON Parser in C
+# JSON Parser in C & Application: Parsely
 
 This project enables users to parse their text file into a JSON tet form, allowing users access to an easier & efficient way to translate their data.
 
