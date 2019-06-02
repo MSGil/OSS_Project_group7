@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 //initialize variables
   FILE *fp = NULL;
   char ch;
-  char str[1048];
+  char *str=(char*)malloc(sizeof(char*)* 2048);
   int k=0;
   int token_num;
   char mainmenu[40];
@@ -51,11 +51,14 @@ int main(int argc, char *argv[]) {
   }
 
   //write into string
-  while (ch !=EOF){
-    ch = fgetc(fp);
-    int len= strlen(str);
-    str[len]= ch;
-    str[len+1]= '\0';
+  int len = 1;
+  while (ch!= EOF){
+      ch =fgetc(fp);
+      len = strlen(str); 
+      str = (char *)realloc(str, len +1 +1);
+      len = strlen (str);
+      str[len] = ch;
+      str[len+1]= '\0';
   }
 
   //assign tokens to arrays
