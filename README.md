@@ -32,7 +32,7 @@ It holds the following tokens:
     Strings: "name", "Jack", "age" (keys and some values)
     Number: 27
 
-In jsonparser, tokens do not hold any data, but point to token boundaries in JSON string instead. In the example above jsonparser will create tokens like: Object [0..31], String [3..7], String [12..16], String [20..23], Number [27..29].
+In jsonparser, tokens do not hold any data, but point to token boundaries in JSON string instead. In the example above jsonparser will create tokens like: Object [0..31], String [3..7], String [12..16], String [20..23], Primitive [27..29].
 
 Every token has a type, which indicates the type of corresponding token. this jsonparser supports the following token types:
 
