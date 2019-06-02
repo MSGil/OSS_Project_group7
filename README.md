@@ -30,6 +30,7 @@ To provide access to multiple forms of data from one text file.
 ### Executing Program
 
 1) json parser
+
 $gcc jsonparcer.c -o jsonparser 
  // compiles the code file into object file
  
@@ -39,6 +40,7 @@ $./jsonparser filename
  ex) $./jsonparser examples.json
 
 2) application
+
 $gcc parsely.c -o parsely
  // compiles the code file into object file
 
