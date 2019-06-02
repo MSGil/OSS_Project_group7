@@ -21,6 +21,54 @@ To provide access to multiple forms of data from one text file.
 
 ## Getting Started
 
+## Design
+# json parser
+
+The rudimentary object is a token. Let's consider a JSON string:
+
+'{ "name" : "Jack", "age" : 27 }'
+
+It holds the following tokens:
+
+    Object: { "name" : "Jack", "age" : 27} (the whole object)
+    Strings: "name", "Jack", "age" (keys and some values)
+    Number: 27
+
+In jsonparser, tokens do not hold any data, but point to token boundaries in JSON string instead. In the example above jsonparser will create tokens like: Object [0..31], String [3..7], String [12..16], String [20..23], Number [27..29].
+
+Every token has a type, which indicates the type of corresponding token. this jsonparser supports the following token types:
+
+    Object - a container of key-value pairs, e.g.: { "foo":"bar", "x":0.3 }
+    Array - a sequence of values, e.g.: [ 1, 2, 3 ]
+    String - a quoted sequence of chars, e.g.: "foo"
+    Primitive - a number, a boolean (true, false) or null
+
+Besides start/end positions, tokens for complex types (like arrays or objects) also contain a number of child items, so you can easily follow object hierarchy.
+
+# parsely
+
+
+## API
+
+Token types are described by type_t:
+
+typedef enum {
+	UNDEFINED = 0,
+	OBJECT = 1,
+	ARRAY = 2,
+	STRING = 3,
+	PRIMITIVE = 4
+} type_t;
+
+Token is an object of tok_t type:
+
+typedef struct {
+	type_t type; // Token type
+	int start;       // Token start position
+	int end;         // Token end position
+	int size;        // Number of child (nested) tokens
+} tok_t;
+
 ### Dependencies
 
 1) Windows 10
