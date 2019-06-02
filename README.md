@@ -8,12 +8,14 @@ To provide access to multiple forms of data from one text file.
 
 ## List of Included Files
 
-1) jsonparser.c  //code file
-2) jsonparser    //executable file
-3) examples.json // example text file
-4) LICENSE.md    // LICENSE file for JSON Parser file
-5) README.md
-6) result.png    // screenshot of example
+1) jsonparser.c  // jsonparser code file
+2) jsonparser    // jsonparser executable file
+3) examples.json // json text file for jsonparser
+4) parsely.c     // application code file
+5) parsely.json  // json text file for application
+6) LICENSE.md    // LICENSE file for JSON Parser file
+7) README.md
+8) result.png    // screenshot of example
 
 ## Getting Started
 
@@ -25,13 +27,21 @@ To provide access to multiple forms of data from one text file.
 
 ### Executing Program
 
-$gcc -g jsonparcer.c -o jsonparser 
+1) json parser
+$gcc jsonparcer.c -o jsonparser 
  // compiles the code file into object file
  
- $./jsonparser filename
+$./jsonparser filename
  //executes file
  
  ex) $./jsonparser examples.json
+
+2) application
+$gcc parsely.c -o parsely
+ // compiles the code file into object file
+
+$ ./parsely parsely.json
+ //executes file
 
 ### Screenshot of Execution
 
