@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *append(char *str, char ch);
 void token_assigner (char *str);
 void print_tokens (char *str);
 
@@ -28,8 +27,15 @@ int main(int argc, char *argv[]) {
 //initialize variables
   FILE *fp = NULL;
   char ch;
-  char *str = (char *)malloc (1048);
+  char str[1048];
   int k=0;
+  int token_num;
+  char mainmenu[40];
+  char placetype[40];
+  char busstop[40];
+  char cuisine[40];
+  char name[40];
+
 
   //open file
   fp = fopen(argv[1],"r");
@@ -47,7 +53,9 @@ int main(int argc, char *argv[]) {
   //write into string
   while (ch !=EOF){
     ch = fgetc(fp);
-    append(str, ch);
+    int len= strlen(str);
+    str[len]= ch;
+    str[len+1]= '\0';
   }
 
   //assign tokens to arrays
@@ -91,7 +99,7 @@ int main(int argc, char *argv[]) {
             //assign type to object
             t[j].type = OBJECT;
 
-            //append to array
+            //
             do{
                 token_assigner(str);
                 //if come across ','means there is more than one value in the object, increase size
@@ -155,21 +163,211 @@ int main(int argc, char *argv[]) {
 // print tokens
     print_tokens (str);
 
+////application
+    token_num=j;
+
+   printf("\n\n\nWelcome to Parsely!!\n");
+   printf("This is handong famous restaurant/cafe searching application!!\n");
+
+
+    printf("\nChoose select among 4 choices\n");
+    printf("1. Place_Type\n");
+    printf("2. Bus_stop\n");
+    printf("3. Cuisine\n");
+    printf("4. Quit\n");
+
+    while(1){
+        printf("\nPlease enter your choice of main menu : ");
+        scanf("%s",mainmenu);
+
+        if(!strcmp (mainmenu, "Quit"))
+        {
+            break;
+        }
+        else if(!strcmp (mainmenu, "Place_Type"))
+        {
+            printf("\nPlace_Type: Cafe, Restaurent ");
+            printf("\nPlease choose the Place_Type which you want to search: ");
+            scanf("%s",placetype);
+            printf("\n");
+
+            for(int w=4;w<=token_num;w++){
+                int a=0;
+                char temp[20];
+                int tempw=0;
+
+                int q=t[w].start;
+                for(int d=0; d<6; d++){
+                    temp[a]=str[q];
+                    q++;
+                    a++;
+                }
+
+                if(!strncmp(temp,placetype,4)){
+                    tempw=w-3;
+                    for(int p=t[tempw].start;p<t[tempw].end;p++){
+                        printf("%c", str[p]);
+                    }
+                    printf("\n");
+                }
+                
+            }
+            
+            printf("\nPlease choose the name of cafe/restaurent: ");
+            scanf("%s",name);
+            printf("\n");
+
+            for(int w=1;w<=token_num;w++){
+                int a=0;
+                char temp[20];
+                int tempw=0;
+
+                int q=t[w].start;
+                for(int d=0; d<6; d++){
+                    temp[a]=str[q];
+                    q++;
+                    a++;
+                }
+
+                if(!strncmp(temp,name,5)){
+                    tempw=w+1;
+                    for(int p=t[tempw].start;p<t[tempw].end;p++){
+                        printf("%c", str[p]);
+                    }
+                    printf("\n");
+                    
+                }
+                
+            }
+
+           break;
+        }
+        else if(!strcmp (mainmenu, "Bus_Stop"))
+        {
+            printf("\nBus stop: Hanaro, Car_wash, Gungmulchon. ");
+            printf("\nPlease choose the Bus stop where you want to cafe/restaurent: ");
+            scanf("%s",busstop);
+            printf("\n");
+
+            for(int w=6;w<=token_num;w++){
+                int a=0;
+                char temp[20];
+                int tempw=0;
+
+                int q=t[w].start;
+                for(int d=0; d<6; d++){
+                    temp[a]=str[q];
+                    q++;
+                    a++;
+                }
+
+                if(!strncmp(temp,busstop,6)){
+                    tempw=w-5;
+                    for(int p=t[tempw].start;p<t[tempw].end;p++){
+                        printf("%c", str[p]);
+                    }
+                    printf("\n");
+                }
+                
+            }
+            
+            printf("\nPlease choose the name of cafe/restaurent: ");
+            scanf("%s",name);
+            printf("\n");
+
+            for(int w=1;w<=token_num;w++){
+                int a=0;
+                char temp[20];
+                int tempw=0;
+
+                int q=t[w].start;
+                for(int d=0; d<6; d++){
+                    temp[a]=str[q];
+                    q++;
+                    a++;
+                }
+
+                if(!strncmp(temp,name,5)){
+                    tempw=w+1;
+                    for(int p=t[tempw].start;p<t[tempw].end;p++){
+                        printf("%c", str[p]);
+                    }
+                    printf("\n");
+                    
+                }
+                
+            }
+
+            break;
+            
+        }
+        else if(!strcmp (mainmenu, "Cuisine"))
+        {
+            printf("\nCuisine: Western_food, Korean_food, Japanese_food. ");
+            printf("\nPlease choose the Cuisine which you want to eat: ");
+            scanf("%s",cuisine);
+            printf("\n");
+
+            for(int w=10;w<=token_num;w++){
+                int a=0;
+                char temp[20];
+                int tempw=0;
+
+                int q=t[w].start;
+                for(int d=0; d<6; d++){
+                    temp[a]=str[q];
+                    q++;
+                    a++;
+                }
+
+                if(!strncmp(temp,cuisine,6)){
+                    tempw=w-9;
+                    for(int p=t[tempw].start;p<t[tempw].end;p++){
+                        printf("%c", str[p]);
+                    }
+                    printf("\n");
+                }
+                
+            }
+            
+            printf("\nPlease choose the name of cafe/restaurent: ");
+            scanf("%s",name);
+            printf("\n");
+
+            for(int w=1;w<=token_num;w++){
+                int a=0;
+                char temp[20];
+                int tempw=0;
+
+                int q=t[w].start;
+                for(int d=0; d<6; d++){
+                    temp[a]=str[q];
+                    q++;
+                    a++;
+                }
+
+                if(!strncmp(temp,name,5)){
+                    tempw=w+1;
+                    for(int p=t[tempw].start;p<t[tempw].end;p++){
+                        printf("%c", str[p]);
+                    }
+                    printf("\n");
+                    
+                }
+                
+            }
+            break;
+        }
+        else{
+            printf("\n올바르지 않은 명령어입니다.\n");
+        }
+
+    }
+
 // close files and free mallocated items.
   fclose(fp);
-  free(str);
 
   return 0;
-}
-
-//append to string
-char *append(char *str, char ch){
-
-  int len= strlen(str);
-  str = (char *)realloc(str, len+1+1);
-  str[len]= ch;
-  str[len+1]= '\0';
-  return str;
 }
 
 //assign nested tokens
@@ -285,7 +483,7 @@ void token_assigner (char *str){
 
 void print_tokens (char *str){
 
-    int x=0;
+    int x=1;
 
      while(t[x].end!='\0')
     {

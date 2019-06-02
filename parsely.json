@@ -1,0 +1,38 @@
+{
+"StarBucks":{
+    "Type":"Cafe",
+    "Bus_Stop":"Hanaro",
+    "Distance":"3minute",
+    "Cuisine":"Western_food"
+},
+ "RedLips":{
+    "Type":"Cafe",
+    "Bus_Stop":"Hanaro",
+    "Distance":"5minute",
+    "Cuisine":"Western_food"
+ },
+ "SulBing":{
+    "Type":"Cafe",
+    "Bus_Stop":"Car_wash",
+    "Distance":"8minute",
+    "Cuisine":"Korean_food"
+ },
+"Baben":{
+    "Type":"Restaurent",
+    "Bus_Stop":"Hanaro",
+    "Distance":"10minute",
+    "Cuisine":"Japanese_food"
+},
+ "SushiYoshi":{
+    "Type":"Restaurent",
+    "Bus_Stop":"Hanaro",
+    "Distance":"5minute",
+    "Cuisine":"Japanese_food"
+ },
+ "Seogaancook":{
+    "Type":"Restaurent",
+    "Bus_Stop":"Gungmulchon",
+    "Distance":"8minute",
+    "Cuisine":"Western_food"
+ }
+}
