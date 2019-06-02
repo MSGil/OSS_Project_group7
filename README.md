@@ -19,10 +19,8 @@ To provide access to multiple forms of data from one text file.
 8) result.png    // screenshot of example
 9) json.c        // final application code file
 
-## Getting Started
-
 ## Design
-# json parser
+### json parser
 
 The rudimentary object is a token. Let's consider a JSON string:
 
@@ -45,7 +43,7 @@ Every token has a type, which indicates the type of corresponding token. this js
 
 Besides start/end positions, tokens for complex types (like arrays or objects) also contain a number of child items, so you can easily follow object hierarchy.
 
-# parsely
+### parsely
 
 
 ## API
@@ -68,6 +66,8 @@ typedef struct {
 	int end;         // Token end position
 	int size;        // Number of child (nested) tokens
 } tok_t;
+
+## Getting Started
 
 ### Dependencies
 
