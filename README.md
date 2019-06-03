@@ -57,6 +57,9 @@ Besides start/end positions, tokens for complex types (like arrays or objects) a
 
 ### Parsely
 
+This application receives the user's desired menu (command). 
+The name of the cafe / restaurant that has information about the menu is calculated by the number of the token.
+And in the same way, if user enter the name of a cafe / restaurant, it finally prints out information about it.
 
 ## API
 
