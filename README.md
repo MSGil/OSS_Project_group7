@@ -10,15 +10,15 @@ To provide access to multiple forms of data from one text file.
 
 1) jsonparser4.c  // jsonparser code file
 2) jsonparser4    // jsonparser executable file
-3) examples.json // json text file for jsonparser
-4) parsely.c     // application code file
-5) parsely       // application executable file
-5) parsely.json  // json text file for application
-6) LICENSE.md    // LICENSE file for JSON Parser file
+3) examples.json  // json text file for jsonparser
+4) parsely.c      // application code file
+5) parsely        // application executable file
+5) parsely.json   // json text file for application
+6) LICENSE.md     // LICENSE file for JSON Parser file
 7) README.md
-8) result.png    // screenshot of example
-9) json.c        // final application code file
-10)json 	// final executable file 
+8) result.png     // screenshot of example
+9) json.c         // final application code file
+10)json 	  // final executable file 
 
 ## About Our App: Parsely!
 
