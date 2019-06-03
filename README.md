@@ -8,8 +8,8 @@ To provide access to multiple forms of data from one text file.
 
 ## List of Included Files
 
-1) jsonparser.c  // jsonparser code file
-2) jsonparser    // jsonparser executable file
+1) jsonparser4.c  // jsonparser code file
+2) jsonparser4    // jsonparser executable file
 3) examples.json // json text file for jsonparser
 4) parsely.c     // application code file
 5) parsely       // application executable file
@@ -18,8 +18,20 @@ To provide access to multiple forms of data from one text file.
 7) README.md
 8) result.png    // screenshot of example
 9) json.c        // final application code file
+10)json 	// final executable file 
 
-## Design
+## About Our App: Parsely!
+
+Our app is specially optimized for students currently attending Handong University. 
+People living in and near the town of Yangduck will find this application to be of much use.
+
+This application reads a JSON text file containing information about various cafes and restaurants in Yangduck. 
+It categorizes the needed information and the user can bring up information about these cafes/restaurants
+based on their location, name, cuisine type, etc. 
+
+This application was made to simplify the time taken when thinking about where to go to get a good meal
+or just to simply enjoy a good cup of coffee. 
+
 ### json parser
 
 The rudimentary object is a token. Let's consider a JSON string:
@@ -43,7 +55,7 @@ Every token has a type, which indicates the type of corresponding token. this js
 
 Besides start/end positions, tokens for complex types (like arrays or objects) also contain a number of child items, so you can easily follow object hierarchy.
 
-### parsely
+### Parsely
 
 
 ## API
